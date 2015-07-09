@@ -4,7 +4,7 @@
 #include <limits.h> /* CHAR_BIT */
 
 
-// http://p99.gforge.inria.fr/p99-html/group__integers_ga3eb39ccac28ebd8265c1a31dc00f53ab.html
+/* http://p99.gforge.inria.fr/p99-html/group__integers_ga3eb39ccac28ebd8265c1a31dc00f53ab.html */
 #define P99_SIGN_PROMOTE(A, B) (1 ? (A) : (B))
 #define P99_PROMOTE_0(EXPR) P99_SIGN_PROMOTE(0, (EXPR))
 #define P99_PROMOTE_M1(EXPR) P99_SIGN_PROMOTE(-1, (EXPR))
@@ -19,7 +19,7 @@ sprint_bits(char* buffer, number)
 **************/
 void print_bits_func(char *s, unsigned long long bit_mover, unsigned long long x);
 
-// #define EXPR_MSB(EXPR) (~(~(unsigned long long)0 << (sizeof(EXPR) * CHAR_BIT - 1)) + 1)
+/* #define EXPR_MSB(EXPR) (~(~(unsigned long long)0 << (sizeof(EXPR) * CHAR_BIT - 1)) + 1) */
 #define EXPR_MSB(EXPR) ((unsigned long long)1 << (sizeof(EXPR) * CHAR_BIT - 1))
 #define sprint_bits(s, x) print_bits_func(s, EXPR_MSB(x), x)
 

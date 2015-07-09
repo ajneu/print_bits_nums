@@ -1,7 +1,10 @@
 #include "print_bits.h"
 #include "type-props.h"
-#include "ct_assert.h"
 
+#if __STDC_VERSION__ < 201112L
+/* not C11 */
+#include "static_assert.h"
+#endif
 
 /*************
 PRINT BIT PATTERN
@@ -10,7 +13,7 @@ sprint_bits(char* buffer, number)
 void print_bits_func(char *s, unsigned long long bit_mover, unsigned long long x)
 {
     for (; bit_mover; s++, bit_mover >>= 1)
-        *s = '0' + ((bit_mover & x) != 0); // *s = '0' + ((bit_mover & x) ? 1 : 0)
+      *s = '0' + ((bit_mover & x) != 0); /* *s = '0' + ((bit_mover & x) ? 1 : 0) */
     *s = '\0';
 }
 
@@ -52,12 +55,21 @@ void print_oct_func(char *s, int offs, unsigned long long x)
 #define BASE10_64BITS 10000000000000000000ULL
 #define BASE10_32BITS 1000000000U
 
-CT_ASSERT1(((TYPE_MAXIMUM(unsigned long long)/10) <  BASE10_64BITS) && (BASE10_64BITS <= TYPE_MAXIMUM(unsigned long long)), check_base10_64bits);
-CT_ASSERT1(((TYPE_MAXIMUM(int)/10) <  BASE10_32BITS) && (BASE10_32BITS <= TYPE_MAXIMUM(int)), check_base10_32bits);
+#if __STDC_VERSION__ >= 201112L
+/* C11 */
+_Static_assert(((TYPE_MAXIMUM(unsigned long long)/10) <  BASE10_64BITS) && (BASE10_64BITS <= TYPE_MAXIMUM(unsigned long long)), "check_base10_64bits");
+_Static_assert(((TYPE_MAXIMUM(int)/10) <  BASE10_32BITS) && (BASE10_32BITS <= TYPE_MAXIMUM(int)), "check_base10_32bits");
+#else
+STATIC_ASSERT(((TYPE_MAXIMUM(unsigned long long)/10) <  BASE10_64BITS) && (BASE10_64BITS <= TYPE_MAXIMUM(unsigned long long)), check_base10_64bits);
+STATIC_ASSERT(((TYPE_MAXIMUM(int)/10) <  BASE10_32BITS) && (BASE10_32BITS <= TYPE_MAXIMUM(int)), check_base10_32bits);
+#endif
+
+
+
 
 void sprint_signed(char *s, long long num)
 {
-    //what this function does: sprintf(s, "%lld", num); 
+    /* what this function does: sprintf(s, "%lld", num); */
     
     if (num < 0LL) {
         *s++ = '-';
@@ -68,7 +80,7 @@ void sprint_signed(char *s, long long num)
 
 void sprint_unsigned(char *s, unsigned long long num)
 {
-    //what this function does: sprintf(s, "%llu", num);
+    /* what this function does: sprintf(s, "%llu", num); */
 
     unsigned long long fac10;
     if (! num) {
@@ -85,7 +97,7 @@ void sprint_unsigned(char *s, unsigned long long num)
 #define SPRINT_UNSIGNED_VARIANT 1
 
 #if (SPRINT_UNSIGNED_VARIANT==1)
-    // variant 1
+    /* variant 1 */
     num = num % fac10;
     {
         while (fac10 /= 10) {
@@ -96,7 +108,7 @@ void sprint_unsigned(char *s, unsigned long long num)
 
 #elif (SPRINT_UNSIGNED_VARIANT==2)
 
-    // variant 2
+    /* variant 2 */
     num = num % fac10;
     while (fac10 /= 10) {
         register unsigned long long tmp;
@@ -106,7 +118,7 @@ void sprint_unsigned(char *s, unsigned long long num)
 
 #else
 
-    // variant 3
+    /* variant 3 */
     {
         register unsigned long long fac10_tmp;
         while (fac10 = (fac10_tmp = fac10) / 10) {
@@ -134,35 +146,38 @@ int main(void)
 
     fputs("Binary: ", stdout);
     puts( (sprint_bits(s, x), s) );
-    //                      \
-    //                    comma operator
+    /*                       \
+                        comma operator */
 
     fputs("Hex   : ", stdout);
     puts( (sprint_hex(s, x), s) );
-    //                     \
-    //                   comma operator
+    /*                      \
+                       comma operator */
 
     fputs("Oct   : ", stdout);
     puts( (sprint_oct(s, x), s) );
-    //                     \
-    //                   comma operator
+    /*                      \
+                       comma operator */
+
 
 
 
     fputs("Binary: ", stdout);
     puts( (sprint_bits(s, -1+11), s) );
-    //                         \
-    //                    comma operator
+    /*                           \
+                           comma operator */
 
     fputs("Hex   : ", stdout);
     puts( (sprint_hex(s, -1+11), s) );
-    //                         \
-    //                    comma operator
+    /*                          \
+                           comma operator */
 
     fputs("Oct   : ", stdout);
     puts( (sprint_oct(s, -1+11), s) );
-    //                         \
-    //                    comma operator
+    /*                          \
+                           comma operator */
+
+
 
     unsigned long long ull = 0x8000000000000000;
     fputs("Unsigned number : ", stdout);
@@ -173,7 +188,7 @@ int main(void)
     puts( (sprint_num(s, sll), s) );
 
     fputs("understanding integer promotion: -2+0U = ", stdout);
-    puts( (sprint_num(s, -2+0U), s) ); // note the integer promotion of -1 to unsigned, according to the promotion rules!
+    puts( (sprint_num(s, -2+0U), s) ); /* note the integer promotion of -1 to unsigned, according to the promotion rules! */
 
     return EXIT_SUCCESS;
 }
