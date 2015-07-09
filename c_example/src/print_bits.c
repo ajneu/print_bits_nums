@@ -132,7 +132,6 @@ void sprint_unsigned(char *s, unsigned long long num)
     *s = '\0';
 }
 
-#define sprint_num(s, x) (P99_SIGNED(x) ? sprint_signed(s, x) : sprint_unsigned(s, x))
 
 
 #if 1

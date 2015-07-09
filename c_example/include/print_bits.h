@@ -21,7 +21,7 @@ void print_bits_func(char *s, unsigned long long bit_mover, unsigned long long x
 
 /* #define EXPR_MSB(EXPR) (~(~(unsigned long long)0 << (sizeof(EXPR) * CHAR_BIT - 1)) + 1) */
 #define EXPR_MSB(EXPR) ((unsigned long long)1 << (sizeof(EXPR) * CHAR_BIT - 1))
-#define sprint_bits(s, x) print_bits_func(s, EXPR_MSB(x), x)
+#define sprint_bits(s, x) print_bits_func((s), EXPR_MSB(x), (x))
 
 
 
@@ -32,7 +32,7 @@ sprint_hex(char* buffer, number)
 void print_hex_func(char *s, int offs, unsigned long long x);
 
 #define EXPR_4_OFFSET(EXPR) ((sizeof(EXPR) * CHAR_BIT - 1) / 4 * 4)
-#define sprint_hex(s, x) print_hex_func(s, EXPR_4_OFFSET(x), x)
+#define sprint_hex(s, x) print_hex_func((s), EXPR_4_OFFSET(x), (x))
 
 
 
@@ -49,7 +49,7 @@ void print_oct_func(char *s, int offs, unsigned long long x);
 
 #define MASK_WIDTH(EXPR) (~0ULL >> ((sizeof(0ULL)-sizeof(EXPR)) * CHAR_BIT)) /*(~(~0ULL << (sizeof(x) * CHAR_BIT)))*/  
 #define EXPR_3_OFFSET(EXPR) ((sizeof(EXPR) * CHAR_BIT - 1) / 3 * 3)
-#define sprint_oct(s, x) print_oct_func(s, EXPR_3_OFFSET(x), x & MASK_WIDTH(x))
+#define sprint_oct(s, x) print_oct_func((s), EXPR_3_OFFSET(x), (x) & MASK_WIDTH(x))
 
 
 
@@ -60,7 +60,7 @@ sprint_num(char* buffer, number)
 void sprint_signed(char *s, long long num);
 void sprint_unsigned(char *s, unsigned long long num);
 
-#define sprint_num(s, x) (P99_SIGNED(x) ? sprint_signed(s, x) : sprint_unsigned(s, x))
+#define sprint_num(s, x) (P99_SIGNED(x) ? sprint_signed((s), (x)) : sprint_unsigned((s), (x)))
 
 
 
