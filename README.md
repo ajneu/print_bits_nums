@@ -17,9 +17,9 @@ printf("%u", (-1+0U));
 ### Or formulated as a *Challenge!*
 
 *Challenge!!*  
-Given an string-buffer: `char arr[129];`  
-write a function-like macro `sprint_num(arr, num)` in standard C  
-that prints the number `num` into the string-buffer `arr`
+Given an string-buffer: `char s[129];`  
+write a function-like macro `sprint_num(s, num)` in standard C  
+that prints the number `num` into the string-buffer `s`
 
 It should behave as follows:
 ```
