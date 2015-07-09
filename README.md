@@ -47,7 +47,8 @@ It should behave as follows:
 
 ```
 
-**Can you write the function-like macro `sprint_num`???** (You're welcome to try writing it as a normal (non-macro) function, but actually that's impossible when using standard C.)
+**Can you write the function-like macro `sprint_num`???** (You're welcome to try writing it as a normal (non-macro) function, but actually that's impossible when using standard C.)  
+While you're at it, try writing `sprint_bin`, `sprint_hex`, and `sprint_oct` as well
 
 ## A possible solution
 
@@ -55,7 +56,7 @@ Use a modern language such as C++.
 
 Or: hack out a function-like macro in C to do it 
 (and also use a few nifty macros from the [P99 project](http://p99.gforge.inria.fr/))  
-How to do it in standard C? See [c_example](https://github.com/ajneu/print_bits_nums/tree/master/c_example)!
+**How to do it in standard C? See [c_example](https://github.com/ajneu/print_bits_nums/tree/master/c_example)!**
 
 ## Addition
 
