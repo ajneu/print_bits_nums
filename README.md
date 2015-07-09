@@ -52,5 +52,13 @@ It should behave as follows:
 ## A possible solution
 
 Use a modern language such as C++.
+
 Or: hack out a function-like macro in C to do it 
-(and also use a few nifty macros from the [P99 project](http://p99.gforge.inria.fr/))
+(and also use a few nifty macros from the [P99 project](http://p99.gforge.inria.fr/))  
+How to do it in standard C? See [c_example](https://github.com/ajneu/print_bits_nums/tree/master/c_example)!
+
+## Addition
+
+If you like to print numbers to string-buffers, without pulling in `stdio.h`, have a look at
+* [`void sprint_signed(char *s, long long num)`](https://github.com/ajneu/print_bits_nums/blob/master/c_example/src/print_bits.c#L70)
+* [`void sprint_unsigned(char *s, unsigned long long num)`](https://github.com/ajneu/print_bits_nums/blob/master/c_example/src/print_bits.c#L81)
