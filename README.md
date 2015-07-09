@@ -4,12 +4,12 @@ C function-like macro to print numbers according to their type.
 ## The problem (in C)
 
 C++ can do this:
-```
+```cpp
 std::cout << (-1+0U) << std::endl;
 ```
 
 But how do you do this in C, if you don't want to give `printf` clues in the form of specifiers such as e.g. `%u`
-```
+```c
 printf("%u", (-1+0U));
 ```
 ???
@@ -22,7 +22,7 @@ write a function-like macro `sprint_num(s, num)` in standard C
 that prints the number `num` into the string-buffer `s`
 
 It should behave as follows:
-```
+```cpp
     sprint_num(s, 1);
     puts(s);   // should print: 1
     sprint_num(s, 255U);
