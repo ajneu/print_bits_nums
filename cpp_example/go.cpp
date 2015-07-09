@@ -1,7 +1,7 @@
 // Just a brief example using C++.
 // It uses character arrays, just to show that it can be done.
 
-// Of course using a std::string, or banging out to std::cout immediately
+// Of course using a std::ostringstream, or banging out to std::cout immediately
 // is a much better way to do this!
 //
 // Also note: don't use char as a number. Use signed char, or unsigned char instead.
