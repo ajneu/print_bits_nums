@@ -42,7 +42,7 @@ sprint_oct(char* buffer, number)
 
 Careful: this function prints ONLY the bits of the specific width and DOES NOT DO SIGN-EXTENSION
 
-So: sprint_oct(char* buffer, (char -1))
+So: sprint_oct(char* buffer, (char) -1)
 yieds s pointing to "377" and not "777"
 **************/
 void print_oct_func(char *s, int offs, unsigned long long x);
