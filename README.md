@@ -54,9 +54,13 @@ While you're at it, try writing `sprint_bin`, `sprint_hex`, and `sprint_oct` as 
 
 Use a modern language such as C++.
 
-Or: hack out a function-like macro in C to do it 
-(and also use a few nifty macros from the [P99 project](http://p99.gforge.inria.fr/))  
-**How to do it in standard C? See [c_example](https://github.com/ajneu/print_bits_nums/tree/master/c_example)!**
+**How to do it in standard C? See [c_example](https://github.com/ajneu/print_bits_nums/tree/master/c_example)!**  
+-> uses a function-like macro in C  
+and makes use of a few nifty macros 
+* from the [P99 project](http://p99.gforge.inria.fr/) (by [Jens Gustedt](https://gustedt.wordpress.com/))  
+used [here](https://github.com/ajneu/print_bits_nums/blob/master/c_example/include/print_bits.h#L7)
+* and from the `type-props.h` header [1](http://yuba.stanford.edu/git/gitweb.cgi?p=openflow.git;a=commit;h=fd90251602dd04eb3a954b1eda790e781b03d9f8) [2](https://github.com/noxrepo/openflow/blob/master/lib/type-props.h) [3](https://github.com/openvswitch/ovs/blob/master/lib/type-props.h) (by [Ben Pfaff](http://benpfaff.org/))
+
 
 ## Addition
 
