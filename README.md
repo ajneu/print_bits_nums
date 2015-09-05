@@ -61,6 +61,27 @@ and makes use of a few nifty macros
 used [here](https://github.com/ajneu/print_bits_nums/blob/master/c_example/include/print_bits.h#L7)
 * and from the `type-props.h` header [1](http://yuba.stanford.edu/git/gitweb.cgi?p=openflow.git;a=commit;h=fd90251602dd04eb3a954b1eda790e781b03d9f8) [2](https://github.com/noxrepo/openflow/blob/master/lib/type-props.h) [3](https://github.com/openvswitch/ovs/blob/master/lib/type-props.h) (by [Ben Pfaff](http://benpfaff.org/))
 
+Basically:
+
+```c
+#include <stdio.h>
+
+/* http://p99.gforge.inria.fr/p99-html/group__integers_ga3eb39ccac28ebd8265c1a31dc00f53ab.html 
+
+   P99 homepage: http://p99.gforge.inria.fr/
+   P99 repo:     https://scm.gforge.inria.fr/anonscm/gitweb?p=p99/p99.git;a=tree
+*/
+#define P99_SIGN_PROMOTE(A, B) (1 ? (A) : (B))
+#define P99_PROMOTE_0(EXPR)    P99_SIGN_PROMOTE(0, (EXPR))
+#define P99_PROMOTE_M1(EXPR)   P99_SIGN_PROMOTE(-1, (EXPR))
+#define P99_SIGNED(EXPR)      (P99_PROMOTE_M1(EXPR) < P99_PROMOTE_0(EXPR))
+
+#define BUFLEN_PRINTBITS ((sizeof(unsigned long long) * CHAR_BIT) + 1) /* 65 */
+
+#define sprint_num(s, x) (P99_SIGNED(x)                                     \
+                          ? sprintf(s, "%lld", (  signed long long)(x))     \
+                          : sprintf(s, "%llu", (unsigned long long)(x)))
+```
 
 ## Addition
 
